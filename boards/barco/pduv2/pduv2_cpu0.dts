@@ -1,0 +1,298 @@
+/*
+ * Copyright (c) 2019, NXP
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+
+#include <nxp/nxp_lpc55S6x.dtsi>
+#include "lpcxpresso55s69.dtsi"
+#include <zephyr/dt-bindings/pwm/pwm.h>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <zephyr/dt-bindings/adc/mcux-lpadc.h>
+
+/ {
+	model = "NXP LPCXpresso55S69 board";
+	compatible = "nxp,lpc55xxx", "nxp,lpc";
+
+	cpus {
+		/delete-node/ cpu@1;
+	};
+
+	aliases{
+		sw0 = &user_button_1;
+		sw1 = &user_button_2;
+		watchdog0 = &wwdt0;
+		/* For pwm test suites */
+		pwm-0 = &sc_timer;
+		pwm-led0 = &red_pwm_led;
+		red-pwm-led = &red_pwm_led;
+		sdhc0 = &sdhc0;
+		sdhc0 = &sdif;
+	};
+
+	chosen {
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+		zephyr,code-partition = &slot0_partition;
+		zephyr,code-cpu1-partition = &slot0_ns_partition;
+		zephyr,sram-cpu1-partition = &sram3;
+		zephyr,console = &flexcomm3;
+		zephyr,shell-uart = &flexcomm3;
+		zephyr,entropy = &rng;
+	};
+
+	zephyr,user {
+		io-channels = <&adc0 0 &adc0 1 &adc0 2 &adc0 3 &adc0 4>;
+	};
+
+	gpio_keys {
+		compatible = "gpio-keys";
+		user_button_1: button_0 {
+			label = "User SW1";
+			gpios = <&gpio1 19 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+			zephyr,code = <INPUT_KEY_0>;
+		};
+		user_button_2: button_1 {
+			label = "User SW2";
+			gpios = <&gpio1 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+			zephyr,code = <INPUT_KEY_1>;
+		};
+	};
+
+	devtogles{
+		compatible = "gpio-keys";
+		device_togle: dev_togle{
+			gpios = <&gpio1 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+			zephyr,code = <INPUT_KEY_0>;
+			status = "okay";
+		};
+		device_number_0: dev_n0{
+			gpios = <&gpio1 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+			zephyr,code = <INPUT_KEY_1>;
+			status = "okay";
+		};
+		device_number_1: dev_n1{
+			gpios = <&gpio1 23 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+			zephyr,code = <INPUT_KEY_2>;
+			status = "okay";
+		};
+		device_number_2: dev_n2{
+			gpios = <&gpio1 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+			zephyr,code = <INPUT_KEY_3>;
+			status = "okay";
+		};
+	};
+
+	data_output_interrupt: dot{
+		compatible = "gpio-keys";
+		acknowledge: ack{
+			gpios = <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+			zephyr,code = <INPUT_KEY_0>;
+			status = "okay";
+		};
+	};
+
+	pwmleds {
+		compatible = "pwm-leds";
+		red_pwm_led: red_pwm_led {
+			pwms = <&sc_timer 0 PWM_MSEC(20) PWM_POLARITY_NORMAL>;
+			label = "Red PWM LED";
+			status = "okay";
+		};
+	};
+};
+
+/*
+ * Default for this board is to allocate SRAM0-2 to cpu0 but the
+ * application can have an application specific device tree to
+ * allocate the SRAM0-4 differently.
+ *
+ * For example, SRAM0-3 could be allocated to cpu0 with only SRAM4
+ * for cpu1. This would require the zephyr,sram chosen value for cpu1
+ * to be changed to sram4 and the value of sram0 to have a DT_SIZE_K
+ * of 256.
+ *
+ */
+&sram0 {
+	compatible = "mmio-sram";
+	reg = <0x20000000 DT_SIZE_K(192)>;
+};
+
+&gpio0 {
+	status = "okay";
+};
+
+&gpio1 {
+	status = "okay";
+};
+
+&red_led {
+	status = "okay";
+};
+
+
+&flexcomm3 {
+	status = "okay";
+};
+
+
+&sdif {
+	status = "okay";
+	pinctrl-0 = <&pinmux_sdif_default>;
+	pinctrl-names = "default";
+	mmc {
+		compatible = "zephyr,sdmmc-disk";
+		status = "okay";
+	};
+};
+
+&hs_lspi {
+	status = "okay";
+	dmas = <&dma0 2>, <&dma0 3>;
+	dma-names = "rx", "tx";
+	cs-gpios  = <&gpio1 26 GPIO_ACTIVE_LOW>,
+				<&gpio1 12 GPIO_ACTIVE_LOW>,
+				<&gpio0 28 GPIO_ACTIVE_LOW>,
+				<&gpio1 30 GPIO_ACTIVE_LOW>,
+				<&gpio1 18 GPIO_ACTIVE_LOW>;
+
+	acs378000: spi-dev-0@0 {
+		compatible = "powermodule";
+		reg = <0>;
+		spi-max-frequency = <1000000>;
+	};
+	acs378001: spi-dev-1@1 {
+		compatible = "powermodule";
+		reg = <1>;
+		spi-max-frequency = <1000000>;
+	};
+	acs378002: spi-dev-2@2 {
+		compatible = "powermodule";
+		reg = <2>;
+		spi-max-frequency = <1000000>;
+		duplex = < 0 >;
+        frame-format = < 0 >;
+	};
+	acs378003: spi-dev-3@3 {
+		compatible = "powermodule";
+		reg = <3>;
+		spi-max-frequency = <1000000>;
+	};
+	acs378004: spi-dev-4@4 {
+		compatible = "powermodule";
+		reg = <4>;
+		spi-max-frequency = <1000000>;
+	};
+};
+
+&wwdt0 {
+	status = "okay";
+};
+
+&adc0 {
+	status = "okay";
+	pinctrl-0 = <&pinmux_lpadc0>;
+	pinctrl-names = "default";
+};
+
+&adc0 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	channel@0 {
+		reg = <0>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_EXTERNAL0";
+		zephyr,vref-mv = <3300>;
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_TICKS, 7)>;
+		zephyr,resolution = <16>;
+		zephyr,input-positive = <MCUX_LPADC_CH0B>;
+	};
+	channel@1 {
+		reg = <1>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_EXTERNAL0";
+		zephyr,vref-mv = <3300>;
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_TICKS, 7)>;
+		zephyr,resolution = <16>;
+		zephyr,input-positive = <MCUX_LPADC_CH0A>;
+	};
+	channel@2 {
+		reg = <2>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_EXTERNAL0";
+		zephyr,vref-mv = <3300>;
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_TICKS, 7)>;
+		zephyr,resolution = <16>;
+		zephyr,input-positive = <MCUX_LPADC_CH2A>;
+	};
+	channel@3 {
+		reg = <3>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_EXTERNAL0";
+		zephyr,vref-mv = <3300>;
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_TICKS, 7)>;
+		zephyr,resolution = <16>;
+		zephyr,input-positive = <MCUX_LPADC_CH3A>;
+	};
+	channel@4 {
+		reg = <4>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_EXTERNAL0";
+		zephyr,vref-mv = <3300>;
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_TICKS, 7)>;
+		zephyr,resolution = <16>;
+		zephyr,input-positive = <MCUX_LPADC_CH4A>;
+	};
+};
+
+&mailbox0 {
+	status = "okay";
+};
+
+&usbfs {
+	pinctrl-0 = <&pinmux_usbfs>;
+	pinctrl-names = "default";
+};
+
+zephyr_udc0: &usbhs {
+	status = "okay";
+};
+
+&ctimer0 {
+	status = "okay";
+};
+
+&ctimer1 {
+	status = "okay";
+};
+
+&ctimer2 {
+	status = "okay";
+};
+
+&ctimer3 {
+	status = "okay";
+};
+
+&ctimer4 {
+	status = "okay";
+};
+
+&sc_timer {
+	status = "okay";
+};
+
+&dma0 {
+	status = "okay";
+};
+
+&dma1 {
+	status = "okay";
+};
+
+&mrt_channel0 {
+	status = "okay";
+};

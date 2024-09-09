@@ -1,0 +1,8 @@
+# Copyright 2019,2024 NXP
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_PDUV2_CPU0
+
+config BOARD
+	default pduv2_CPU0
+endif 

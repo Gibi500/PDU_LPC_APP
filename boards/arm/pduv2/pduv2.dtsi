@@ -183,10 +183,17 @@
 	};
 };
 
-&flexcomm3 {
+&flexcomm0 {
 	compatible = "nxp,lpc-usart";
 	current-speed = <115200>;
 	dmas = <&dma0 6>, <&dma0 7>;
+	dma-names = "rx", "tx";
+};
+
+&flexcomm3 {
+	compatible = "nxp,lpc-usart";
+	current-speed = <115200>;
+	dmas = <&dma0 8>, <&dma0 9>;
 	dma-names = "rx", "tx";
 };
 
@@ -227,6 +234,11 @@
 			reg = <0x00088000 DT_SIZE_K(50)>;
 		};
 	};
+};
+
+&flexcomm0 {
+	pinctrl-0 = <&pinmux_flexcomm0_usart>;
+	pinctrl-names = "default";
 };
 
 &flexcomm3 {

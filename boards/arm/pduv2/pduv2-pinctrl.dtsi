@@ -31,8 +31,11 @@
 
 	pinmux_lpadc0: pinmux_lpadc0 {
 		group0 {
-			pinmux = <ADC0_CH8_PIO0_16>,
+			pinmux = <ADC0_CH12_PIO1_9>,
+					 <ADC0_CH11_PIO1_0>,
+					 <ADC0_CH8_PIO0_16>,
 					 <ADC0_CH0_PIO0_23>,
+					 <ADC0_CH1_PIO0_10>,
 					 <ADC0_CH2_PIO0_15>,
 					 <ADC0_CH3_PIO0_31>,
 					 <ADC0_CH4_PIO1_8>;

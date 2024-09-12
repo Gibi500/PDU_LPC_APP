@@ -4,12 +4,12 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-identifier: lpcxpresso55s69/lpc55s69/cpu0
-name: NXP LPCXpresso55S69 (CPU0)
+identifier: pduv2/lpc55s69/cpu0/ns
+name: NXP LPCXpresso55S69 (Non-Secure)
 type: mcu
 arch: arm
-ram: 64
-flash: 256
+ram: 136
+flash: 96
 toolchain:
   - zephyr
   - gnuarmemb
@@ -17,9 +17,8 @@ toolchain:
 supported:
   - adc
   - counter
+  - dma
   - gpio
   - spi
-  - sdhc
-  - usb_device
   - watchdog
 vendor: nxp

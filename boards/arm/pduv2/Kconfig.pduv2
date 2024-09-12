@@ -1,7 +1,6 @@
 # Copyright 2024 NXP
 # SPDX-License-Identifier: Apache-2.0
 
-config BOARD_PDUV2_CPU0
-	bool "PDU v2 [CPU0]"
-	depends on SOC_SERIES_LPC55XXX
+config BOARD_PDUV2
+	select SOC_LPC55S69_CPU0 if BOARD_PDUV2_LPC55S69_CPU0
 	select SOC_PART_NUMBER_LPC55S69JBD100

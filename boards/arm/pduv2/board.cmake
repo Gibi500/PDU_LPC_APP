@@ -8,14 +8,14 @@
 ## DAP Link implementation in pyocd is underway,
 ## until then jlink can be used or copy image to storage
 
-if(CONFIG_BOARD_LPCXPRESSO55S69_LPC55S69_CPU0 OR
-   CONFIG_BOARD_LPCXPRESSO55S69_LPC55S69_CPU0_NS OR
+if(CONFIG_BOARD_PDUV2_LPC55S69_CPU0 OR
+   CONFIG_BOARD_PDUV2_LPC55S69_CPU0_NS OR
    CONFIG_SECOND_CORE_MCUX)
   board_runner_args(jlink "--device=LPC55S69_M33_0")
   board_runner_args(linkserver  "--device=LPC55S69:LPCXpresso55S69")
   board_runner_args(linkserver  "--override=/device/memory/0/flash-driver=LPC55xx_S.cfx")
   board_runner_args(linkserver  "--override=/device/memory/0/location=0x10000000")
-elseif(CONFIG_BOARD_LPCXPRESSO55S69_LPC55S69_CPU1)
+elseif(CONFIG_BOARD_PDUV2_LPC55S69_CPU1)
   board_runner_args(jlink "--device=LPC55S69_M33_1")
 endif()
 

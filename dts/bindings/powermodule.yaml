@@ -1,0 +1,3 @@
+description: Power module driver
+compatible: "powermodule"
+include: spi-device.yaml

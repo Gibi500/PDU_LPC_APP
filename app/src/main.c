@@ -48,14 +48,21 @@
 #define SSR3_NODE DT_ALIAS(ssr3)
 #define SSR4_NODE DT_ALIAS(ssr4)
 #define SSR5_NODE DT_ALIAS(ssr5)
+#define SSR6_NODE DT_ALIAS(ssr6)
+#define SSR7_NODE DT_ALIAS(ssr7)
+#define SSR8_NODE DT_ALIAS(ssr8)
 
 #define RPD1_NODE DT_ALIAS(rpd1)
 #define RPD2_NODE DT_ALIAS(rpd2)
 #define RPD3_NODE DT_ALIAS(rpd3)
 #define RPD4_NODE DT_ALIAS(rpd4)
 #define RPD5_NODE DT_ALIAS(rpd5)
+// #define RPD6_NODE DT_ALIAS(rpd6)
+// #define RPD7_NODE DT_ALIAS(rpd7)
+#define RPD8_NODE DT_ALIAS(rpd8)
 
-#define DEVTGGL_NODE DT_ALIAS(devtgl)
+#define DEVON_NODE DT_ALIAS(devon)
+#define DEVOFF_NODE DT_ALIAS(devoff)
 #define DEVN0_NODE DT_ALIAS(devn0)
 #define DEVN1_NODE DT_ALIAS(devn1)
 #define DEVN2_NODE DT_ALIAS(devn2)
@@ -69,15 +76,8 @@
 #define DATA6_NODE DT_ALIAS(data6)
 #define DATA7_NODE DT_ALIAS(data7)
 
-#define DODN0_NODE DT_ALIAS(dodn0)
-#define DODN1_NODE DT_ALIAS(dodn1)
-#define DODN2_NODE DT_ALIAS(dodn2)
-#define DODN3_NODE DT_ALIAS(dodn3)
-#define DODN4_NODE DT_ALIAS(dodn4)
-#define DODN5_NODE DT_ALIAS(dodn5)
-
-#define DATA_READY_NODE DT_ALIAS(dr)
-#define ACK_NODE DT_ALIAS(ack)
+#define ACK_MCU_NODE DT_ALIAS(ackmcu)
+#define ACK_MPU_NODE DT_ALIAS(ackmpu)
 
 
 // SPI operation configuration
@@ -98,14 +98,21 @@ static const struct gpio_dt_spec ssr2 = GPIO_DT_SPEC_GET(SSR2_NODE, gpios);
 static const struct gpio_dt_spec ssr3 = GPIO_DT_SPEC_GET(SSR3_NODE, gpios);
 static const struct gpio_dt_spec ssr4 = GPIO_DT_SPEC_GET(SSR4_NODE, gpios);
 static const struct gpio_dt_spec ssr5 = GPIO_DT_SPEC_GET(SSR5_NODE, gpios);
+static const struct gpio_dt_spec ssr6 = GPIO_DT_SPEC_GET(SSR6_NODE, gpios);
+static const struct gpio_dt_spec ssr7 = GPIO_DT_SPEC_GET(SSR7_NODE, gpios);
+static const struct gpio_dt_spec ssr8 = GPIO_DT_SPEC_GET(SSR8_NODE, gpios);
 
 static const struct gpio_dt_spec rpd1 = GPIO_DT_SPEC_GET(RPD1_NODE, gpios);
 static const struct gpio_dt_spec rpd2 = GPIO_DT_SPEC_GET(RPD2_NODE, gpios);
 static const struct gpio_dt_spec rpd3 = GPIO_DT_SPEC_GET(RPD3_NODE, gpios);
 static const struct gpio_dt_spec rpd4 = GPIO_DT_SPEC_GET(RPD4_NODE, gpios);
 static const struct gpio_dt_spec rpd5 = GPIO_DT_SPEC_GET(RPD5_NODE, gpios);
+// static const struct gpio_dt_spec rpd6 = GPIO_DT_SPEC_GET(RPD6_NODE, gpios);
+// static const struct gpio_dt_spec rpd7 = GPIO_DT_SPEC_GET(RPD7_NODE, gpios);
+static const struct gpio_dt_spec rpd8 = GPIO_DT_SPEC_GET(RPD8_NODE, gpios);
 
-static const struct gpio_dt_spec devtoggle = GPIO_DT_SPEC_GET(DEVTGGL_NODE, gpios);
+static const struct gpio_dt_spec devon = GPIO_DT_SPEC_GET(DEVON_NODE, gpios);
+static const struct gpio_dt_spec devoff = GPIO_DT_SPEC_GET(DEVOFF_NODE, gpios);
 static const struct gpio_dt_spec devn0 = GPIO_DT_SPEC_GET(DEVN0_NODE, gpios);
 static const struct gpio_dt_spec devn1 = GPIO_DT_SPEC_GET(DEVN1_NODE, gpios);
 static const struct gpio_dt_spec devn2 = GPIO_DT_SPEC_GET(DEVN2_NODE, gpios);
@@ -119,15 +126,8 @@ static const struct gpio_dt_spec data5 = GPIO_DT_SPEC_GET(DATA5_NODE, gpios);
 static const struct gpio_dt_spec data6 = GPIO_DT_SPEC_GET(DATA6_NODE, gpios);
 static const struct gpio_dt_spec data7 = GPIO_DT_SPEC_GET(DATA7_NODE, gpios);
 
-static const struct gpio_dt_spec dodn0 = GPIO_DT_SPEC_GET(DODN0_NODE, gpios);
-static const struct gpio_dt_spec dodn1 = GPIO_DT_SPEC_GET(DODN1_NODE, gpios);
-static const struct gpio_dt_spec dodn2 = GPIO_DT_SPEC_GET(DODN2_NODE, gpios);
-static const struct gpio_dt_spec dodn3 = GPIO_DT_SPEC_GET(DODN3_NODE, gpios);
-static const struct gpio_dt_spec dodn4 = GPIO_DT_SPEC_GET(DODN4_NODE, gpios);
-static const struct gpio_dt_spec dodn5 = GPIO_DT_SPEC_GET(DODN5_NODE, gpios);
-
-static const struct gpio_dt_spec data_ready = GPIO_DT_SPEC_GET(DATA_READY_NODE, gpios);
-static const struct gpio_dt_spec ack = GPIO_DT_SPEC_GET(ACK_NODE, gpios);
+static const struct gpio_dt_spec ack_mcu = GPIO_DT_SPEC_GET(ACK_MCU_NODE, gpios);
+static const struct gpio_dt_spec ack_mpu = GPIO_DT_SPEC_GET(ACK_MPU_NODE, gpios);
 
 const struct gpio_dt_spec datas[] = {
 	data0,
@@ -139,16 +139,6 @@ const struct gpio_dt_spec datas[] = {
 	data6,
 	data7,
 };
-
-const struct gpio_dt_spec dodn[] = {
-	dodn0,
-	dodn1,
-	dodn2,
-	dodn3,
-	dodn4,
-	dodn5,
-};
-
 
 // SPI
 const struct spi_dt_spec acs37800_devices[] = {
@@ -248,10 +238,10 @@ enum power_monitor_addresses power_monitor_spi_addresses[] = {
 };
 
 // Callback for the device toggle
-static struct gpio_callback devtoggle_cb_data;
-static struct gpio_callback ack_cb_data;
+static struct gpio_callback devon_cb_data;
+static struct gpio_callback devoff_cb_data;
 
-
+static struct gpio_callback ack_mpu_cb_data;
 // Callback for the ack device toggle
 void ack_interrupt(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
 {
@@ -287,7 +277,7 @@ int8_t read_adc_value(const struct adc_dt_spec *adc_dev, uint16_t *value){
 }
 
 // Callback for the device toggle
-void device_toggled(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
+void device_on(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
 {
 	uint8_t val = 0;
 	val += gpio_pin_get_dt(&devn0);
@@ -298,24 +288,36 @@ void device_toggled(const struct device *dev, struct gpio_callback *cb, uint32_t
 
 	switch (val) {
 		case 0:
-			gpio_pin_toggle_dt(&ssr1);
+			gpio_pin_set_dt(&ssr1, 1);
 			printf("SSR1 toggled\n");
 			break;
 		case 1:
-			gpio_pin_toggle_dt(&ssr2);
+			gpio_pin_set_dt(&ssr2, 1);
 			printf("SSR2 toggled\n");
 			break;
 		case 2:
-			gpio_pin_toggle_dt(&ssr3);
+			gpio_pin_set_dt(&ssr3, 1);
 			printf("SSR3 toggled\n");
 			break;
 		case 3:
-			gpio_pin_toggle_dt(&ssr4);
+			gpio_pin_set_dt(&ssr4, 1);
 			printf("SSR4 toggled\n");
 			break;
 		case 4:
-			gpio_pin_toggle_dt(&ssr5);
+			gpio_pin_set_dt(&ssr5, 1);
 			printf("SSR5 toggled\n");
+			break;
+		case 5:
+			gpio_pin_set_dt(&ssr6, 1);
+			printf("SSR6 toggled\n");
+			break;
+		case 6:
+			gpio_pin_set_dt(&ssr7, 1);
+			printf("SSR7 toggled\n");
+			break;
+		case 7:
+			gpio_pin_set_dt(&ssr8, 1);
+			printf("SSR8 toggled\n");
 			break;
 		default:
 			printf("Invalid value\n");
@@ -342,6 +344,53 @@ void device_toggled(const struct device *dev, struct gpio_callback *cb, uint32_t
 	// }
 }
 
+void device_off(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
+{
+	uint8_t val = 0;
+	val += gpio_pin_get_dt(&devn0);
+	val += gpio_pin_get_dt(&devn1) << 1;
+	val += gpio_pin_get_dt(&devn2) << 2;
+
+	// printf("devn0: %d, devn1: %d, devn2: %d\n", gpio_pin_get_dt(&devn0), gpio_pin_get_dt(&devn1), gpio_pin_get_dt(&devn2));
+
+	switch (val) {
+		case 0:
+			gpio_pin_set_dt(&ssr1, 0);
+			printf("SSR1 toggled\n");
+			break;
+		case 1:
+			gpio_pin_set_dt(&ssr2, 0);
+			printf("SSR2 toggled\n");
+			break;
+		case 2:
+			gpio_pin_set_dt(&ssr3, 0);
+			printf("SSR3 toggled\n");
+			break;
+		case 3:
+			gpio_pin_set_dt(&ssr4, 0);
+			printf("SSR4 toggled\n");
+			break;
+		case 4:
+			gpio_pin_set_dt(&ssr5, 0);
+			printf("SSR5 toggled\n");
+			break;
+		case 5:
+			gpio_pin_set_dt(&ssr6, 0);
+			printf("SSR6 toggled\n");
+			break;
+		case 6:
+			gpio_pin_set_dt(&ssr7, 0);
+			printf("SSR7 toggled\n");
+			break;
+		case 7:
+			gpio_pin_set_dt(&ssr8, 0);
+			printf("SSR8 toggled\n");
+			break;
+		default:
+			printf("Invalid value\n");
+			break;
+	}
+}
 // GPIO setup check if device tree is ready and configure the pin as output for ...
 int8_t setup_gpios()
 {
@@ -369,6 +418,18 @@ int8_t setup_gpios()
 	if (!gpio_is_ready_dt(&ssr5)) {	return -1; }
 	if (gpio_pin_configure_dt(&ssr5, GPIO_OUTPUT_ACTIVE) < 0) {	return -1; }
 
+	//ssr6
+	if (!gpio_is_ready_dt(&ssr6)) {	return -1; }
+	if (gpio_pin_configure_dt(&ssr6, GPIO_OUTPUT_ACTIVE) < 0) {	return -1; }
+
+	//ssr7
+	if (!gpio_is_ready_dt(&ssr7)) {	return -1; }
+	if (gpio_pin_configure_dt(&ssr7, GPIO_OUTPUT_ACTIVE) < 0) {	return -1; }
+
+	//ssr8
+	if (!gpio_is_ready_dt(&ssr8)) {	return -1; }
+	if (gpio_pin_configure_dt(&ssr8, GPIO_OUTPUT_ACTIVE) < 0) {	return -1; }
+
 	//rpd1
 	if (!gpio_is_ready_dt(&rpd1)) {	return -1; }
 	if (gpio_pin_configure_dt(&rpd1, GPIO_OUTPUT_ACTIVE) < 0) {	return -1; }
@@ -389,6 +450,18 @@ int8_t setup_gpios()
 	if (!gpio_is_ready_dt(&rpd5)) {	return -1; }
 	if (gpio_pin_configure_dt(&rpd5, GPIO_OUTPUT_ACTIVE) < 0) {	return -1; }
 
+	// //rpd6
+	// if (!gpio_is_ready_dt(&rpd6)) {	return -1; }
+	// if (gpio_pin_configure_dt(&rpd6, GPIO_OUTPUT_ACTIVE) < 0) {	return -1; }
+
+	// //rpd7
+	// if (!gpio_is_ready_dt(&rpd7)) {	return -1; }
+	// if (gpio_pin_configure_dt(&rpd7, GPIO_OUTPUT_ACTIVE) < 0) {	return -1; }
+
+	//rpd8
+	if (!gpio_is_ready_dt(&rpd8)) {	return -1; }
+	if (gpio_pin_configure_dt(&rpd8, GPIO_OUTPUT_ACTIVE) < 0) {	return -1; }
+
 	//devn0
 	if (!gpio_is_ready_dt(&devn0)) { return -1; }
 	if (gpio_pin_configure_dt(&devn0, GPIO_INPUT) < 0) { return -1; }
@@ -401,20 +474,26 @@ int8_t setup_gpios()
 	if (!gpio_is_ready_dt(&devn2)) { return -1; }
 	if (gpio_pin_configure_dt(&devn2, GPIO_INPUT) < 0) { return -1; }
 
-	
+	//devon
+	if (!gpio_is_ready_dt(&devon)) { return -1; }
+	if (gpio_pin_configure_dt(&devon, GPIO_INPUT) < 0) { return -1; }
 
-	//devtoggle
-	if (!gpio_is_ready_dt(&devtoggle)) { return -1; }
-	if (gpio_pin_configure_dt(&devtoggle, GPIO_INPUT) < 0) { return -1; }
+	// Set the interrupt for the device on
+	gpio_pin_interrupt_configure_dt(&devon, GPIO_INT_EDGE_TO_ACTIVE);
+	gpio_init_callback(&devon_cb_data, device_on, BIT(devon.pin));
+	gpio_add_callback(devon.port, &devon_cb_data);
 
-	// Set the interrupt for the device toggle
-	gpio_pin_interrupt_configure_dt(&devtoggle, GPIO_INT_EDGE_TO_ACTIVE);
-	gpio_init_callback(&devtoggle_cb_data, device_toggled, BIT(devtoggle.pin));
-	gpio_add_callback(devtoggle.port, &devtoggle_cb_data);
+	if (!gpio_is_ready_dt(&devoff)) { return -1; }
+	if (gpio_pin_configure_dt(&devoff, GPIO_INPUT) < 0) { return -1; }
 
-	//ack
-	if (!gpio_is_ready_dt(&ack)) { return -1; }
-	if (gpio_pin_configure_dt(&ack, GPIO_INPUT) < 0) { return -1; }
+	// Set the interrupt for the device on
+	gpio_pin_interrupt_configure_dt(&devoff, GPIO_INT_EDGE_TO_ACTIVE);
+	gpio_init_callback(&devoff_cb_data, device_off, BIT(devoff.pin));
+	gpio_add_callback(devoff.port, &devoff_cb_data);
+
+	//ack_mpu
+	if (!gpio_is_ready_dt(&ack_mpu)) { return -1; }
+	if (gpio_pin_configure_dt(&ack_mpu, GPIO_INPUT) < 0) { return -1; }
 
 	// gpio_pin_interrupt_configure_dt(&ack, GPIO_INT_EDGE_TO_ACTIVE);
 	// gpio_init_callback(&ack_cb_data, ack_interrupt, BIT(ack.pin));
@@ -427,20 +506,11 @@ int8_t setup_gpios()
 		if (gpio_pin_configure_dt(&datas[i], GPIO_OUTPUT_ACTIVE) < 0) { return -1; }
 	}
 
-	//dodn
-	for (size_t i = 0; i < sizeof(dodn) / sizeof(dodn[0]); i++)
-	{
-		if (!gpio_is_ready_dt(&dodn[i])) { return -1; }
-		if (gpio_pin_configure_dt(&dodn[i], GPIO_OUTPUT_ACTIVE) < 0) { return -1; }
-	}
-
-	//data_ready
-	if (!gpio_is_ready_dt(&data_ready)) { return -1; }
-	if (gpio_pin_configure_dt(&data_ready, GPIO_OUTPUT_ACTIVE) < 0) { return -1; }
-	gpio_pin_set_dt(&data_ready, 0);
+	//ack_mcu
+	if (!gpio_is_ready_dt(&ack_mcu)) { return -1; }
+	if (gpio_pin_configure_dt(&ack_mcu, GPIO_OUTPUT_ACTIVE) < 0) { return -1; }
+	gpio_pin_set_dt(&ack_mcu, 0);
 	state_data_ready = false;
-
-	
 
 	return 0;
 }
@@ -592,7 +662,7 @@ void spi_consumer_thread(void){
 	{
 		size_t data_send = 0;
 		while (data_send < 4){
-			if(gpio_pin_get_dt(&ack) == state_data_ready){
+			if(gpio_pin_get_dt(&ack_mpu) == state_data_ready){
 				if (k_fifo_is_empty(&process_data_fifo)){
 					// printf("fifo is empty\n");
 					k_msleep(10);
@@ -601,10 +671,10 @@ void spi_consumer_thread(void){
 				// data_transfer_ready = false;
 				struct processed_data_t *data = k_fifo_get(&process_data_fifo, K_FOREVER);
 				printf("command = %d: Value = %02X\n\r",data->command, data->value);
-				for (size_t i = 0; i < sizeof(dodn) / sizeof(dodn[0]); i++)
-				{
-					gpio_pin_set_dt(&dodn[i], (data->command & (0x01 << i)));
-				}
+				// for (size_t i = 0; i < sizeof(dodn) / sizeof(dodn[0]); i++)
+				// {
+				// 	gpio_pin_set_dt(&dodn[i], (data->command & (0x01 << i)));
+				// }
 
 				for (size_t i = 0; i < sizeof(datas) / sizeof(datas[0]); i++)
 				{
@@ -625,10 +695,10 @@ void spi_consumer_thread(void){
 				// gpio_pin_set_dt(&data_ready, 1);
 				if (state_data_ready){
 					state_data_ready = false;
-					gpio_pin_set_dt(&data_ready, 0);
+					gpio_pin_set_dt(&ack_mcu, 0);
 				}else{
 					state_data_ready = true;
-					gpio_pin_set_dt(&data_ready, 1);
+					gpio_pin_set_dt(&ack_mcu, 1);
 				}
 			}
 			k_msleep(10);

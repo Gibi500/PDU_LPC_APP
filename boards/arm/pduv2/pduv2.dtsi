@@ -31,8 +31,8 @@
 		rpd7 = &reset_peak_detector_7;
 		*/
 		rpd8 = &reset_peak_detector_8;
-		devton = &device_on;
-		devtoff = &device_off;
+		devon = &device_on;
+		devoff = &device_off;
 		devn0 = &device_number_0;
 		devn1 = &device_number_1;
 		devn2 = &device_number_2;

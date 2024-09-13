@@ -45,31 +45,36 @@
 
 	devtogles{
 		compatible = "gpio-keys";
-		device_togle: dev_togle{
-			gpios = <&gpio1 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+		device_on: dev_on{
+			gpios = <&gpio1 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
 			zephyr,code = <INPUT_KEY_0>;
 			status = "okay";
 		};
-		device_number_0: dev_n0{
-			gpios = <&gpio1 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+		device_off: dev_off{
+			gpios = <&gpio1 31 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
 			zephyr,code = <INPUT_KEY_1>;
 			status = "okay";
 		};
-		device_number_1: dev_n1{
+		device_number_0: dev_n0{
 			gpios = <&gpio1 23 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
 			zephyr,code = <INPUT_KEY_2>;
 			status = "okay";
 		};
-		device_number_2: dev_n2{
-			gpios = <&gpio1 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+		device_number_1: dev_n1{
+			gpios = <&gpio1 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
 			zephyr,code = <INPUT_KEY_3>;
+			status = "okay";
+		};
+		device_number_2: dev_n2{
+			gpios = <&gpio1 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+			zephyr,code = <INPUT_KEY_4>;
 			status = "okay";
 		};
 	};
 
 	data_output_interrupt: dot{
 		compatible = "gpio-keys";
-		acknowledge: ack{
+		ack_mpu: ack_mpu{
 			gpios = <&gpio1 25 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
 			zephyr,code = <INPUT_KEY_0>;
 			status = "okay";

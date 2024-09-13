@@ -27,7 +27,15 @@
 		};
 	};
 
-
+	pinmux_flexcomm4_spi: pinmux_flexcomm4_spi{
+		group0 {
+			pinmux = <FC4_SCK_PIO1_19>,
+					 <FC4_TXD_SCL_MISO_WS_PIO1_20>,
+					 <FC4_RXD_SDA_MOSI_DATA_PIO1_21>;
+			bias-pull-up;
+			slew-rate = "standard";
+		};
+	};
 
 	pinmux_hs_lspi_default: pinmux_hs_lspi_default {
 		group0 {

@@ -156,7 +156,7 @@ const struct spi_dt_spec acs37800_devices[] = {
 	SPI_DT_SPEC_GET(DT_NODELABEL(acs378001), SPI_OP, 0),
 	SPI_DT_SPEC_GET(DT_NODELABEL(acs378002), SPI_OP, 0),
 	SPI_DT_SPEC_GET(DT_NODELABEL(acs378003), SPI_OP, 0),
-	SPI_DT_SPEC_GET(DT_NODELABEL(acs378004), SPI_OP, 0),
+	// SPI_DT_SPEC_GET(DT_NODELABEL(acs378004), SPI_OP, 0),
 };
 // ADC
 /* Data of ADC io-channels specified in devicetree. */

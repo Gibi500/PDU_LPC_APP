@@ -21,13 +21,9 @@
 	};
 
 	aliases{
-		sw0 = &user_button_1;
-		sw1 = &user_button_2;
 		watchdog0 = &wwdt0;
 		/* For pwm test suites */
 		pwm-0 = &sc_timer;
-		pwm-led0 = &red_pwm_led;
-		red-pwm-led = &red_pwm_led;
 		sdhc0 = &sdhc0;
 		sdhc0 = &sdif;
 	};
@@ -45,20 +41,6 @@
 
 	zephyr,user {
 		io-channels = <&adc0 0 &adc0 1 &adc0 2 &adc0 3 &adc0 4>;
-	};
-
-	gpio_keys {
-		compatible = "gpio-keys";
-		user_button_1: button_0 {
-			label = "User SW1";
-			gpios = <&gpio1 19 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-			zephyr,code = <INPUT_KEY_0>;
-		};
-		user_button_2: button_1 {
-			label = "User SW2";
-			gpios = <&gpio1 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-			zephyr,code = <INPUT_KEY_1>;
-		};
 	};
 
 	devtogles{
@@ -88,20 +70,12 @@
 	data_output_interrupt: dot{
 		compatible = "gpio-keys";
 		acknowledge: ack{
-			gpios = <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+			gpios = <&gpio1 25 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
 			zephyr,code = <INPUT_KEY_0>;
 			status = "okay";
 		};
 	};
 
-	pwmleds {
-		compatible = "pwm-leds";
-		red_pwm_led: red_pwm_led {
-			pwms = <&sc_timer 0 PWM_MSEC(20) PWM_POLARITY_NORMAL>;
-			label = "Red PWM LED";
-			status = "okay";
-		};
-	};
 };
 
 /*
@@ -148,15 +122,49 @@
 	};
 };
 
-&hs_lspi {
+&flexcomm4{
 	status = "okay";
+	compatible = "powermodule";
 	dmas = <&dma0 2>, <&dma0 3>;
 	dma-names = "rx", "tx";
-	cs-gpios  = <&gpio1 26 GPIO_ACTIVE_LOW>,
+	spi-max-frequency = <1000000>;
+	cs-gpios  = <&gpio0 18 GPIO_ACTIVE_LOW>,
+				<&gpio1 15 GPIO_ACTIVE_LOW>,
+				<&gpio0 17 GPIO_ACTIVE_LOW>,
+				<&gpio1 22 GPIO_ACTIVE_LOW>;
+
+	/*
+	acs378004: spi-dev-0@0 {
+		reg = <0>;
+		duplex = < 0 >;
+        frame-format = < 0 >;
+	};
+	acs378005: spi-dev-5@1 {
+		reg = <1>;
+		duplex = < 0 >;
+        frame-format = < 0 >;
+	};
+	acs378006: spi-dev-6@2 {
+		reg = <2>;
+		duplex = < 0 >;
+        frame-format = < 0 >;
+	};
+	acs378007: spi-dev-7@3 {
+		reg = <3>;
+		duplex = < 0 >;
+        frame-format = < 0 >;
+	};
+	*/
+};
+
+&hs_lspi {
+	status = "okay";
+	dmas = <&dma0 10>, <&dma0 11>;
+	dma-names = "rx", "tx";
+	cs-gpios  = <&gpio0 20 GPIO_ACTIVE_LOW>,
+				<&gpio1 1 GPIO_ACTIVE_LOW>,
 				<&gpio1 12 GPIO_ACTIVE_LOW>,
-				<&gpio0 28 GPIO_ACTIVE_LOW>,
-				<&gpio1 30 GPIO_ACTIVE_LOW>,
-				<&gpio1 18 GPIO_ACTIVE_LOW>;
+				<&gpio1 26 GPIO_ACTIVE_LOW>;
 
 	acs378000: spi-dev-0@0 {
 		compatible = "powermodule";
@@ -178,11 +186,6 @@
 	acs378003: spi-dev-3@3 {
 		compatible = "powermodule";
 		reg = <3>;
-		spi-max-frequency = <1000000>;
-	};
-	acs378004: spi-dev-4@4 {
-		compatible = "powermodule";
-		reg = <4>;
 		spi-max-frequency = <1000000>;
 	};
 };
